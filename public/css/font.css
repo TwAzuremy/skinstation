@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'minecraft-font';
+    src: url('font/Minecraft.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Resource-Han-Rounded';
+    src: url('font/ResourceHanRoundedCN-Regular.ttf') format('truetype');
+}

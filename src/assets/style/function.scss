@@ -1,0 +1,109 @@
+$width-phone: 768px;
+$width-ipad: 1024px;
+$width-computer: 1440px;
+
+$flex-gap-default: var(--flex-gap-default);
+
+/**
+ * @param  [type]  $align-items: flex-start
+ * @param  [type]  $justify-content: flex-start
+ * @param  [type]  $gap: 8px
+ * @param  [type]  $direction: row
+ */
+@mixin flex-layout($align-items: flex-start, $justify-content: flex-start, $gap: $flex-gap-default, $direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align-items;
+    justify-content: $justify-content;
+    gap: $gap;
+}
+
+/**
+ * @param  [type]  $h-shadow  水平位移
+ * @param  [type]  $v-shadow  垂直位移
+ */
+@mixin shadow($h-shadow, $v-shadow, $blur: var(--shadow-blur), $rgba: rgba(var(--shadow-color), var(--shadow-opacity))) {
+    box-shadow: $h-shadow $v-shadow $blur $rgba;
+}
+
+/**
+ * @param  [type]  $value      宽高值
+ * @param  [type]  $direction  width 或 height
+ */
+@mixin flexible-animation($from, $to, $direction, $identifier: random(1000), $forwards: false, $reverse: false) {
+    $animation-name: "flexible-keyframes-#{$direction}-#{$identifier}";
+
+    $animation-forwards: "";
+    @if $forwards {
+        $animation-forwards: "forwards";
+    }
+
+    animation: #{$animation-name} var(--animation-duration-default) ease-in-out #{$animation-forwards};
+
+    @keyframes #{$animation-name} {
+        0% {
+            #{$direction}: $from;
+        }
+        25% {
+            #{$direction}: if($reverse, #{$to - 10px}, #{$to + 10px});
+        }
+        50% {
+            #{$direction}: if($reverse, #{$to + 10px}, #{$to - 10px});
+        }
+        75% {
+            #{$direction}: if($reverse, #{$to - 8px}, #{$to + 8px});
+        }
+        100% {
+            #{$direction}: $to;
+        }
+    }
+}
+
+@mixin large-rounded-rectangle($direction, $value) {
+    #{$direction}: $value;
+    border-radius: #{$value / 2};
+}
+
+/**
+ * 强制限制宽高
+ */
+@mixin limit-property($property, $value) {
+    min-#{$property}: $value;
+    max-#{$property}: $value;
+}
+
+/**
+ * 取反方向
+ */
+@function opposite-direction($direction) {
+    @if $direction == top {
+        @return bottom;
+    } @else if $direction == bottom {
+        @return top;
+    } @else if $direction == left {
+        @return right;
+    } @else if $direction == right {
+        @return left;
+    } @else {
+        @error "Invalid direction #{$direction}.";
+    }
+}
+
+/**
+ * 滚动条样式
+ */
+@mixin scrollbar-style() {
+    &::-webkit-scrollbar {
+        background-color: var(--scrollbar-background);
+        width: var(--scrollbar-width);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--scrollbar-trumb-background), var(--scrollbar-trumb-opacity));
+        border-radius: calc(var(--scrollbar-width) / 2);
+    }
+
+    &::-webkit-scrollbar-track {
+
+    }
+}
