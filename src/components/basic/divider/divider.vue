@@ -1,5 +1,7 @@
 <template>
-    <div class="divider" :class="`margin-${margin} direction-${direction}`"></div>
+    <div class="divider" :class="`margin-${margin} direction-${direction}`">
+        <div></div>
+    </div>
 </template>
 
 <script setup>
@@ -23,16 +25,25 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .divider {
-    background-color: rgba(var(--divider-color), var(--divider-opacity));
+    >div {
+        background-color: rgba(var(--divider-color), var(--divider-opacity));
+    }
 
     &.direction-h {
         width: 100%;
-        @include large-rounded-rectangle(height, 2px);
+
+        >div {
+            @include large-rounded-rectangle(height, 2px);
+        }
     }
 
     &.direction-v {
         height: 100%;
-        @include large-rounded-rectangle(width, 2px);
+
+        >div {
+            height: 100%;
+            @include large-rounded-rectangle(width, 2px);
+        }
     }
 
     $margin-sizes: (

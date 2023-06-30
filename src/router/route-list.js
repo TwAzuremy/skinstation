@@ -1,4 +1,4 @@
-const list = ['user', 'favourites', 'warehouse', 'settings', 'about']
+const list = ['personal', 'favourites', 'warehouse', 'settings', 'about']
 
 /**
  * 设置 name 列表, 自动生成路由

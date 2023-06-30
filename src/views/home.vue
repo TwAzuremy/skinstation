@@ -117,7 +117,7 @@ onMounted(() => {
         .layout-masonry__item {
             padding: calc(var(--margin-large) / 2) 0;
             opacity: 0;
-            animation: fade-in var(--animation-duration-default) forwards calc(var(--load-order) * 0.1s);
+            animation: fade-in var(--transition-duration-fast) forwards calc(var(--load-order) * 0.1s);
         }
 
         @media screen and (max-width: $width-ipad) {

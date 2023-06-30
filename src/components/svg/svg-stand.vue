@@ -1,12 +1,10 @@
-<script setup name="svg-home">
+<script setup name="svg-stand">
 
 </script>
 
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-         class="feather feather-home">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' width='24' height='24'>
+        <circle cx="12" cy="4" r="2"></circle>
+        <path d="M15 22V9h5V7H4v2h5v13h2v-7h2v7z"></path>
     </svg>
 </template>

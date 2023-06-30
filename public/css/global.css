@@ -7,16 +7,38 @@
     /* card */
     --card-background-color: 255, 255, 255;
     --card-background-opacity: 1;
+    --card-background-black: 0, 0, 0;
+    --masker-background-color: 0, 0, 0;
+    --masker-background-opacity: 0.45;
+    --masker-icon-color: 217, 217, 217;
+    --selection-background: 255, 235, 190;
+    --selection-opactiy: 0.8;
+    --masking-background: 51, 51, 51;
 
     /* Third color */
     --secondary-color: 64, 145, 255;
-    --input-border-color-default: 51, 51, 51;
+    --error-color: 255, 71, 87;
+    --warn-color: 255, 186, 0;
+    --success-color: 70, 201, 58;
+    --star-color: 255, 186, 0;
+    --skin-title-color: 51, 51, 51;
+    --skin-model-color: 107, 208, 137;
+
+    /* input */
+    --input-border-color-default: 89, 89, 89;
+    --range-track-background: 191, 191, 191;
+    --range-thumb-color: 255, 255, 255;
+    --range-thumb-color-hover: 246, 246, 246;
+    --range-thumb-color-active: 232, 232, 232;
 
     /* text */
     --text-color-light-mode: 51, 51, 51;
     --text-color-dark-mode: 242, 244, 246;
     --text-opacity: 0.8;
     --text-opacity-content: 0.4;
+    --text-color-error: 244, 115, 120;
+    --text-pageination-notCurrent-color: 128, 128, 128;
+    --text-color-profile: 128, 128, 128;
 
     /* button */
     --sidebar-button-background: 51, 51, 51;
@@ -25,7 +47,7 @@
     --sdiebar-button-before-opacity: 0.4;
     --button-background: 51, 51, 51;
     --switch-background: 191, 191, 191;
-    --switch-background-checked: 107, 208, 137;
+    --switch-background-checked: 70, 201, 58;
     --switch-circle-backgrond: 255, 255, 255;
 
     /* divider */
@@ -34,11 +56,17 @@
 
     /* opacity */
     --opacity-shallow: 0.8;
+    --opacity-button-fill: 0.2;
     --opacity-button-hover: 0.08;
     --opacity-button-active: 0.15;
     --opacity-input-hover: 0.75;
     --opacity-input-focus: 1;
     --opacity-input-background-hover: 0.08;
+    --opacity-pagination-currentPage-background: 0.2;
+    --opacity-masking: 0.45;
+
+    /* blur */
+    --blur-masking: 4px;
 
     /* shadow */
     --shadow-blur: 4px;
@@ -71,6 +99,7 @@
     /* font */
     --font-default: 'Resource-Han-Rounded', 'Consolas', sans-serif;
     --font-minecraft: 'minecraft-font', 'Consolas', sans-serif;
+    --font-minecraft-precedence: 'minecraft-font', 'Resource-Han-Rounded', 'Consolas', sans-serif;
 
     /* layout */
     --flex-gap-default: 8px;
@@ -96,6 +125,10 @@ body {
     font-family: var(--font-default);
     background-color: rgb(var(--background-color));
     /*color: #fff;*/
+}
+
+*::selection {
+    background-color: rgba(var(--selection-background), var(--selection-opactiy));
 }
 
 a {

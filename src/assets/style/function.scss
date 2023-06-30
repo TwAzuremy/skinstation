@@ -1,6 +1,7 @@
-$width-phone: 768px;
+$width-phone: 767px;
 $width-ipad: 1024px;
 $width-computer: 1440px;
+$input-type-width: 214px;
 
 $flex-gap-default: var(--flex-gap-default);
 
@@ -15,7 +16,9 @@ $flex-gap-default: var(--flex-gap-default);
     flex-direction: $direction;
     align-items: $align-items;
     justify-content: $justify-content;
-    gap: $gap;
+    @if $gap != 0 {
+        gap: $gap;
+    }
 }
 
 /**
@@ -92,18 +95,14 @@ $flex-gap-default: var(--flex-gap-default);
 /**
  * 滚动条样式
  */
-@mixin scrollbar-style() {
+@mixin scrollbar-style($scrollbar-width: var(--scrollbar-width)) {
     &::-webkit-scrollbar {
         background-color: var(--scrollbar-background);
-        width: var(--scrollbar-width);
+        width: $scrollbar-width;
     }
 
     &::-webkit-scrollbar-thumb {
         background-color: rgba(var(--scrollbar-trumb-background), var(--scrollbar-trumb-opacity));
-        border-radius: calc(var(--scrollbar-width) / 2);
-    }
-
-    &::-webkit-scrollbar-track {
-
+        border-radius: calc($scrollbar-width / 2);
     }
 }

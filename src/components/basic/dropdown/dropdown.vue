@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown">
+    <div class="dropdown" :data-id="id">
         <input type="text" placeholder="请选择" :value="value" readonly ref="dom_inputContainer" @change="update">
         <svg-down></svg-down>
         <div class="dropdown__data" ref="dom__dropdownData">
@@ -18,7 +18,7 @@ import SvgDown from "@/components/svg/svg-down.vue";
 import CustomButton from "@/components/basic/button/custom-button.vue";
 import {onMounted, ref} from "vue";
 import clickOutsideMixin from "@/assets/model/clickOutsideMixin";
-import {getCSSRootValue} from "@/assets/model/function";
+import {eliminateScroll, generateRandomString, getCSSRootValue} from "@/assets/model/function";
 
 const props = defineProps({
     defaultValue: String,
@@ -31,6 +31,7 @@ const dom_inputContainer = ref(null)
 const dom__dropdownData = ref(null)
 const value = ref(props.defaultValue)
 const key = ref(null)
+const id = ref(generateRandomString(10))
 let dropdownData
 
 function update() {
@@ -41,20 +42,8 @@ function updateDropdownData() {
     return dom__dropdownData.value.querySelectorAll('li')
 }
 
-function eliminateScroll(func) {
-    dom__dropdownData.value.classList.add('noScroll')
-
-    func()
-
-    const transitionTime = Math.floor(parseFloat(getCSSRootValue('--transition-duration-default')) * 1000)
-
-    setTimeout(() => {
-        dom__dropdownData.value.classList.remove('noScroll')
-    }, transitionTime)
-}
-
 function unfold() {
-    eliminateScroll(() => {
+    eliminateScroll(dom__dropdownData, '--transition-duration-default', () => {
         const scrollHeight = Math.min(dom__dropdownData.value.scrollHeight, 200)
         dom__dropdownData.value.style.height = scrollHeight + 'px'
         dom__dropdownData.value.classList.add('unfold')
@@ -62,7 +51,7 @@ function unfold() {
 }
 
 function collapse() {
-    eliminateScroll(() => {
+    eliminateScroll(dom__dropdownData, '--transition-duration-default', () => {
         dom__dropdownData.value.removeAttribute('style')
         dom__dropdownData.value.classList.remove('unfold')
     })
@@ -72,7 +61,7 @@ function auto() {
     dom__dropdownData.value.classList.contains('unfold') ? collapse() : unfold()
 }
 
-clickOutsideMixin(dom__dropdownData, '.dropdown', 'unfold', collapse)
+clickOutsideMixin(dom__dropdownData, `.dropdown[data-id='${id.value}']`, 'unfold', collapse)
 
 function select(index) {
     dom__dropdownData.value.querySelector('.selected')?.classList.remove('selected')
@@ -101,10 +90,12 @@ onMounted(() => {
 .dropdown {
     position: relative;
     color: rgb(var(--text-color-light-mode));
+    width: $input-type-width;
+    transition: width var(--transition-duration-fast) ease-in-out;
 
     input[type=text] {
         padding: 0 calc(var(--margin-middle) * 2 + 1.25em) 0 var(--margin-middle);
-        cursor: pointer;
+        cursor: default;
 
         &:hover {
             & + svg {
@@ -130,7 +121,7 @@ onMounted(() => {
         rotate var(--transition-duration-fast) ease-in-out;
 
         &:has(+.dropdown__data.unfold) {
-            rotate: 180deg;
+            rotate: -180deg;
         }
     }
 
@@ -148,7 +139,7 @@ onMounted(() => {
         opacity: 0;
         transition: height var(--transition-duration-default) ease-in-out,
         opacity var(--transition-duration-fast) ease-in-out var(--transition-duration-default);
-        @include scrollbar-style();
+        @include scrollbar-style(6px);
         z-index: 10;
 
         &.noScroll {

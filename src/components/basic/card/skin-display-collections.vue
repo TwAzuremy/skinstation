@@ -7,7 +7,7 @@
             <custom-button>
                 <svg-more></svg-more>
                 <bubble direction="left" mode="click" sidelined="bottom">
-                    <custom-button>
+                    <custom-button @click="editInfo">
                         <svg-edit></svg-edit>
                         修改昵称
                     </custom-button>
@@ -51,8 +51,13 @@ const props = defineProps({
         }
     }
 })
+const emits = defineEmits(['edit', 'check', 'delete'])
 
 const skinImgSrc = ref('')
+
+function editInfo() {
+    emits('edit')
+}
 
 onMounted(() => {
     canvasToImg(224, 248, props.skinLocation, props.skinModel).then(base64 => skinImgSrc.value = base64)

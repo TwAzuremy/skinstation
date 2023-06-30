@@ -8,7 +8,7 @@
             <div class="titleBar__avatar__container" v-if="isLogin">
                 <img :src="userInfo?.avatarImgPath" alt="avatar">
                 <bubble class="bubble-no-click" direction="bottom" sidelined="right" mode="click">
-                    <custom-button btn-style="text" @click="to('/user')">
+                    <custom-button btn-style="text" @click="to('/personal')">
                         <svg-user></svg-user>
                         个人资料
                     </custom-button>

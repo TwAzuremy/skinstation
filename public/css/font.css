@@ -1,9 +1,11 @@
 @font-face {
     font-family: 'minecraft-font';
-    src: url('font/Minecraft.ttf') format('truetype');
+    src: url('font/Minecraft.woff2') format('woff2'),
+    url("font/Minecraft.woff") format("woff");
 }
 
 @font-face {
     font-family: 'Resource-Han-Rounded';
-    src: url('font/ResourceHanRoundedCN-Regular.ttf') format('truetype');
+    src: url('font/ResourceHanRoundedCN-Regular.woff2') format('woff2'),
+    url('font/ResourceHanRoundedCN-Regular.woff') format('woff');
 }

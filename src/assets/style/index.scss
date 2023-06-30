@@ -29,19 +29,20 @@
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=number] {
+    appearance: none;
     outline: none;
     border-radius: var(--radius-small);
     min-height: 32px;
-    width: 214px;
+    width: 100%;
     font-size: 0.875em;
     text-align: left;
     border: 1px solid rgb(var(--input-border-color-default));
     padding: 0 var(--margin-middle);
-    background-color: transparent;
+    background-color: rgba(var(--card-background-color), var(--card-background-opacity));
     transition: border-color var(--transition-duration-fast) ease-in-out,
-    background-color var(--transition-duration-fast) ease-in-out,
-    width var(--transition-duration-fast) ease-in-out;
+    background-color var(--transition-duration-fast) ease-in-out;
     font-family: var(--font-default);
 
     &:hover {
@@ -50,13 +51,7 @@ input[type=password] {
     }
 
     &:focus {
-        background-color: rgba(var(--secondary-color), var(--opacity-input-background-hover));
-        border-color: rgba(var(--secondary-color), var(--opacity-input-focus));
-    }
-
-    @media screen and (max-width: $width-phone / 2) {
-        & {
-            width: 107px;
-        }
+        background-color: rgba(var(--secondary-color), var(--opacity-input-background-hover)) !important;
+        border-color: rgba(var(--secondary-color), var(--opacity-input-focus)) !important;
     }
 }

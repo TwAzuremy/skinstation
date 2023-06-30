@@ -1,7 +1,7 @@
 /**
  * 防抖
  * @param func{Function}
- * @param wait{Number}
+ * @param wait{Number} ms
  * @returns {(function(...[*]): void)|*}
  */
 export function debounce(func, wait) {
@@ -24,11 +24,15 @@ export function addSwipeListener(direction, distance, callback) {
     let startX, startY;
 
     function handleTouchStart(e) {
+        if (notSwipeObject(e)) return
+
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
     }
 
     function handleTouchEnd(e) {
+        if (notSwipeObject(e)) return
+
         const endX = e.changedTouches[0].clientX;
         const endY = e.changedTouches[0].clientY;
         const dx = endX - startX;
@@ -64,6 +68,10 @@ export function addSwipeListener(direction, distance, callback) {
         }
     }
 
+    function notSwipeObject(e) {
+        return e.target.tagName === 'INPUT' && e.target.type === 'range'
+    }
+
     element.addEventListener('touchstart', handleTouchStart);
     element.addEventListener('touchend', handleTouchEnd);
 
@@ -82,4 +90,64 @@ export function addSwipeListener(direction, distance, callback) {
  */
 export function getCSSRootValue(property) {
     return getComputedStyle(document.querySelector(':root')).getPropertyValue(property)
+}
+
+/**
+ * 随机生成一串字符串
+ * @param length 生成的位数
+ * @returns {string}
+ */
+export function generateRandomString(length) {
+    let result = "";
+    const characters =
+        "0123456789abcdefghijklmnopqrstuvwxyz";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+/**
+ * 获取搜索建议
+ * @param searchInput
+ * @param stringArray
+ * @returns {*}
+ */
+export function getSearchSuggestions(searchInput, stringArray) {
+    if (searchInput === '' || stringArray.length === 0) {
+        return []
+    }
+
+    // 使用 filter 方法过滤筛选结果
+    return stringArray.filter((item) => {
+        return item.includes(searchInput); // 判断每个项是否包含搜索字符串
+    })
+}
+
+/**
+ * 在容器展开时隐藏滚动条 (美观)
+ * @param refDom
+ * @param cssRootValue
+ * @param func
+ */
+export function eliminateScroll(refDom, cssRootValue, func) {
+    refDom.value.classList.add('noScroll')
+
+    func()
+
+    const transitionTime = Math.floor(parseFloat(getCSSRootValue(cssRootValue)) * 1000)
+
+    setTimeout(() => {
+        refDom.value?.classList.remove('noScroll')
+    }, transitionTime)
+}
+
+/**
+ * 判断是否为偶数
+ * @param numb
+ * @returns {boolean}
+ */
+export function isEven(numb) {
+    return numb % 2 === 0
 }

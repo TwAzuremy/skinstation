@@ -7,6 +7,7 @@
 
 <script setup name="bubble">
 import {onMounted, ref} from "vue";
+import {generateRandomString} from "@/assets/model/function";
 
 const props = defineProps({
     direction: {
@@ -41,9 +42,11 @@ const props = defineProps({
 })
 
 const dom_bubble = ref(null)
+const id = ref(generateRandomString(10))
 
 onMounted(() => {
     const parentElement = dom_bubble.value.parentElement
+    parentElement.dataset.id = id.value
 
     if (props.mode === 'hover') {
         parentElement.classList.add('bubble__mode-hover')

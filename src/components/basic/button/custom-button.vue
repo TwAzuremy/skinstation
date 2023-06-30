@@ -8,9 +8,9 @@
 const props = defineProps({
     btnStyle: {
         type: String,
-        default: 'fill',
+        default: 'text',
         validator(value) {
-            return ['fill', 'border', 'text'].indexOf(value) !== -1
+            return ['fill', 'border', 'text', 'error', 'error-hover'].indexOf(value) !== -1
         }
     }
 })
@@ -31,14 +31,63 @@ const handler = function () {
     color: rgb(var(--text-color-light-mode));
     font-size: 0.875em;
     user-select: none;
-    transition: background-color var(--transition-duration-fast) ease-in-out;
+    transition: background-color var(--transition-duration-fast) ease-in-out,
+    width var(--transition-duration-fast) ease-in-out;
 
-    &:hover {
-        background-color: rgba(var(--secondary-color), var(--opacity-button-hover));
+    &.custom-button__style-text {
+        background-color: transparent;
+
+        &:hover {
+            background-color: rgba(var(--secondary-color), var(--opacity-button-hover));
+        }
+
+        &:active {
+            background-color: rgba(var(--secondary-color), var(--opacity-button-active));
+        }
     }
 
-    &:active {
-        background-color: rgba(var(--secondary-color), var(--opacity-button-active));
+    &.custom-button__style-fill {
+        background-color: rgba(var(--secondary-color), var(--opacity-button-hover));
+
+        &:hover {
+            background-color: rgba(var(--secondary-color), var(--opacity-button-fill));
+        }
+
+        &:active {
+            background-color: rgba(var(--secondary-color), var(--opacity-button-active));
+        }
+    }
+
+    &.custom-button__style-error {
+        background-color: rgba(var(--error-color), var(--opacity-button-hover));
+
+        &:hover {
+            background-color: rgba(var(--error-color), var(--opacity-button-fill));
+        }
+
+        &:active {
+            background-color: rgba(var(--error-color), var(--opacity-button-active));
+        }
+
+        ::v-deep(svg) {
+            color: rgb(var(--error-color));
+        }
+    }
+
+    &.custom-button__style-error-hover {
+        background-color: transparent;
+
+        &:hover {
+            background-color: rgba(var(--error-color), var(--opacity-button-hover));
+        }
+
+        &:active {
+            background-color: rgba(var(--error-color), var(--opacity-button-active));
+        }
+
+        ::v-deep(svg) {
+            color: rgb(var(--error-color));
+        }
     }
 
     ::v-deep(svg) {

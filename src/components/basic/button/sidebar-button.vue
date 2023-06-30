@@ -31,7 +31,6 @@ onMounted(() => {
 .sidebar__button {
     @include flex-layout($align-items: center);
     position: relative;
-    cursor: pointer;
     width: 100%;
     border-radius: var(--radius-small);
     line-height: 1.5em;
